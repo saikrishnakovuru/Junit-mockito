@@ -5,6 +5,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -35,5 +36,17 @@ public class ListMockTest {
   public void testVerificationMethods() {
     String val = (String) mockList.get(0);
     verify(mockList, atLeastOnce()).get(0);
+  }
+
+  @Test
+  public void mocking() {
+    ArrayList mockList = mock(ArrayList.class);
+    System.out.println(mockList.get(0)); //null
+    System.out.println(mockList.size()); //0
+    mockList.add("adf");
+    mockList.add("ghj");
+    System.out.println(mockList.size()); //0
+    when(mockList.size()).thenReturn(5);
+    System.out.println(mockList.size()); //5
   }
 }

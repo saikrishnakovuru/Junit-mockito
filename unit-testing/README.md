@@ -72,3 +72,44 @@ There are few verificationModes to test in specific. Few other verification mode
     never()
     times() etc
 ```
+
+## Spying
+
+Spying is nothing but using the actual methods instead of mocking them.
+
+Before looking into the example of spying lets look into mocking things
+
+```java
+@Test
+  public void mocking() {
+    ArrayList mockList = mock(ArrayList.class);
+    System.out.println(mockList.get(0)); //null
+    System.out.println(mockList.size()); //0
+    mockList.add("adf");
+    mockList.add("ghj");
+    System.out.println(mockList.size()); //0
+    when(mockList.size()).thenReturn(5);
+    System.out.println(mockList.size()); //5
+  }
+```
+
+Example clearly shows mocking the arrayList do not affect actual values. Though we explicitly added 2 values into the arrayList, still the size of array is 0 unless we stub it.
+
+Spying is working on actual array list.
+
+```java
+//code-1
+ArrayList mockList = spy(ArrayList.class);
+System.out.println(mockList.get(0)); //NPE as the array is empty
+
+//code-2
+ArrayList mockList = spy(ArrayList.class);
+mockList.add("adf");
+System.out.println(mockList.get(0)); //adf
+System.out.println(mockList.size()); //1
+  
+```
+
+# Limitations of Mockito
+
+We cannot mock static and constructors, to do that we need additional framework called power mockito.
